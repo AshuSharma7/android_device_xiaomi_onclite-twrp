@@ -79,10 +79,19 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 TW_USE_BUSYBOX := true
+TARGET_OTA_ASSERT_DEVICE := onclite
+
+# Crypto
+TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/commonsys/cryptfs_hw
+TARGET_HW_DISK_ENCRYPTION := true
+PLATFORM_SECURITY_PATCH := 2025-12-31
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
 
 #PB OFFICIAL
-PB_OFFICIAL := false
+PB_OFFICIAL := false #Waiting To Become Official
 
