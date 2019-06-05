@@ -28,11 +28,8 @@
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    chmod 0660 /dev/qseecom
-    chown system drmrpc /dev/qseecom
-    chmod 0664 /dev/ion
-    chown system system /dev/ion
     install_keyring
+    setprop crypto.ready 1
 
 # Separate copy needed to use /sbin/linker64 instead of /system/bin/linker64
 service sbinqseecomd /sbin/qseecomd
@@ -75,23 +72,23 @@ service keystore /sbin/keystore /tmp/misc/keystore
     disabled
     seclabel u:r:recovery:s0
 
-service gatekeeper-1-0 /sbin/android.hardware.gatekeeper@1.0-service-qti
+service gatekeeper-1-0 /sbin/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
-service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service-qti
+service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
 on init
-    setprop sys.usb.config adb
-    start hwservicemanager
-#start prepdecrypt
-    setprop crypto.ready 1
+    chmod 0660 /dev/qseecom
+    chown system drmrpc /dev/qseecom
+    chmod 0664 /dev/ion
+    chown system system /dev/ion
 
 on property:crypto.ready=0
     stop sbinqseecomd
@@ -100,4 +97,12 @@ on property:crypto.ready=0
     stop servicemanager
 
 on property:crypto.ready=1
+    setprop ro.hardware.keystore sdm660
     start sbinqseecomd
+    
+on property:sys.listeners.registered=true
+    start hwservicemanager
+    start keymaster-3-0
+    start gatekeeper-1-0
+    start servicemanager
+
