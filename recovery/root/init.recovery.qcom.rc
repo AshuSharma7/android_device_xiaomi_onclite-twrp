@@ -72,13 +72,13 @@ service keystore /sbin/keystore /tmp/misc/keystore
     disabled
     seclabel u:r:recovery:s0
 
-service gatekeeper-1-0 /sbin/android.hardware.gatekeeper@1.0-service
+service gatekeeper-1-0 /sbin/android.hardware.gatekeeper@1.0-service-qti
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
-service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service
+service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service-qti
     user root
     group root
     disabled
@@ -97,7 +97,7 @@ on property:crypto.ready=0
     stop servicemanager
 
 on property:crypto.ready=1
-    setprop ro.hardware.keystore sdm660
+    setprop ro.hardware.keystore msm8953
     start sbinqseecomd
     
 on property:sys.listeners.registered=true
