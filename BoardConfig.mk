@@ -93,7 +93,7 @@ TW_INCLUDE_CRYPTO_FBE := true
     qseecomd \
     servicemanager \
     hwservicemanager \
-    keymaster-3-0
+    keymaster-4-0
 
 TW_CRYPTO_SYSTEM_VOLD_MOUNT := system vendor
 TW_CRYPTO_SYSTEM_VOLD_DEBUG := true
