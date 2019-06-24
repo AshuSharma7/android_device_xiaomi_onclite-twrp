@@ -23,6 +23,9 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
+#Device Path
+DEVICE := device/xiaomi/onclite
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -50,7 +53,7 @@ BOARD_KERNEL_BASE        := 0x80000000
 BOARD_KERNEL_PAGESIZE    := 2048
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET     := 0x01000000
-TARGET_PREBUILT_KERNEL := device/xiaomi/onclite/Image.gz-dtb
+TARGET_PREBUILT_KERNEL := device/xiaomi/onclite/prebuilt/Image.gz-dtb
 
 # Partitions
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -71,7 +74,6 @@ TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_CRYPTO := true
-TARGET_HW_DISK_ENCRYPTION := true
 TW_INCLUDE_NTFS_3G := true
 TW_IGNORE_MISC_WIPE_DATA := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
@@ -79,30 +81,17 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 TW_USE_BUSYBOX := true
-TARGET_OTA_ASSERT_DEVICE := onclite
-
-# Crypto
-TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/commonsys/cryptfs_hw
-TARGET_HW_DISK_ENCRYPTION := true
-PLATFORM_SECURITY_PATCH := 2025-12-31
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
-
-# Fix userdata decryption
-    TW_CRYPTO_USE_SYSTEM_VOLD := \
-    qseecomd \
-    servicemanager \
-    hwservicemanager \
-    keymaster-4-0
-
-TW_CRYPTO_SYSTEM_VOLD_MOUNT := system vendor
-TW_CRYPTO_SYSTEM_VOLD_DEBUG := true
-TW_CRYPTO_SYSTEM_VOLD_SERVICES := true
-
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
 
+#Include DTBO image
+BOARD_KERNEL_SEPARATED_DTBO := true
+BOARD_INCLUDE_RECOVERY_DTBO := true
+BOARD_BOOTIMG_HEADER_VERSION := 1
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET) --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+
 #PB OFFICIAL
-PB_OFFICIAL := false #Waiting To Become Official
+PB_OFFICIAL := true
 
