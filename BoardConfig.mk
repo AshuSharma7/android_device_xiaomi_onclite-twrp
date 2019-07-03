@@ -80,7 +80,6 @@ TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXCLUDE_SUPERSU := true
 TW_EXTRA_LANGUAGES := true
-TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_NTFS_3G := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_THEME := portrait_hdpi
@@ -91,6 +90,10 @@ TW_INPUT_BLACKLIST := "hbtp_vm"
 # Treble
 BOARD_NEEDS_VENDORIMAGE_SYMLINK := false
 TARGET_COPY_OUT_VENDOR := vendor
+
+#Crypto
+TW_INCLUDE_CRYPTO := true
+TARGET_HW_ENCRYPTION := true
 
 # OrangeFox Flags
 OF_SCREEN_H := 2280
